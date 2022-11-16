@@ -13,4 +13,8 @@
     <servlet-name>StartPage</servlet-name>
     <url-pattern>/landing/</url-pattern>
   </servlet-mapping>
+  
+  <error-page>
+    <location>/dev.html</location>
+  </error-page>
 </web-app>
