@@ -1,0 +1,98 @@
+:root {
+  /* Define a single theme color with variants. Most interaction-elements should make do with these colors. */
+  --theme-color: #1579A0;
+  --theme-color-light: #D0E5EF;
+
+  --text-color: #333;
+  --back-color: #F5F5F5;
+  --hyperlink-color: #1579A0;
+  --hyperlink-color-visited: #884488;
+
+  --light-grey: #D4D4D4;
+  --lighter-grey: #E8E8E8;
+  --dark-grey: #4D4D4D;
+  --grey: #888;
+
+  /* A default spacer, 0.7rem corresponds to about 10px (ordinarily) */
+  --spacer: 0.7rem;
+  --half-spacer: 0.5rem;
+  
+  --default-radius: 3px;
+
+  /* The optimal text width for a paragraph of text. To be used for the width attribute. */
+  --paragraph: clamp(45ch, 100%, 75ch);
+
+  /** Animation time for arbitrary non-critical elements, can be slow for aesthetics **/
+  --animation-time: 0.15s;
+  /** Animation time for function-critical elements, should be quick; the experience is not as important as the function **/
+  --animation-time-primary: 0.1s;
+
+  /* Short-hand */
+  --anim: 0.1s ease-out;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--grey);
+  opacity: 1; /* Firefox */
+}
+
+*:focus {
+  z-index: 1;
+  outline: 2px dotted var(--theme-color);
+  border-radius: var(--default-radius);
+  border-color: transparent;
+  outline-offset: 2px;
+}
+
+*[tabindex="-1"]:focus {
+  /* Don't show outline when tabindex is an explicit -1 (i.e. the element is focusable, but not through keyboard interaction)
+   *
+   * Note: An element with tabindex=-1 can be given focus programmatically through `.focus()`, this is useful to set the focus point within the DOM, and
+   * thus helps the user's intuition with where the focus starts, but without also showing visual clues to this effect. For example when a popup opens up,
+   * the popup container can be given tabindex=-1 and .focus()-ed, then when the user tabs through, he will give focus to the first element in the popup,
+   * rather than some element in the background, thereby doing what his intuition would expect.
+   *
+   * Also note: tabindex should never be >1
+   */
+  outline: 0 !important;
+}
+
+html {
+  height: 100%;
+  min-height: 600px;
+}
+
+body {
+  height: 100%;
+  min-width: 800px;
+  margin: 0px;
+  padding: 0px;
+  color: var(--text-color);
+}
+p {
+  margin: 0px;
+  line-height: 1.7em;
+}
+h1,h2 {
+  margin: 8px 0px;
+  font-size: 22px;
+  font-weight: normal;
+  color: var(--text-color);
+}
+h3,h4,h5 {
+  margin: 0px;
+  font-size: 1em;
+}
+
+em {
+  color: var(--theme-color);
+  font-weight: bold;
+  font-style: normal;
+}
+a {
+  color: var(--hyperlink-color);
+}
+
+a:visited {
+  color: var(--hyperlink-color-visited);
+}

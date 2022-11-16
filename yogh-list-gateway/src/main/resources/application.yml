@@ -1,0 +1,14 @@
+server:
+  servlet:
+    context-path: /
+
+zuul:
+  debug:
+    request: true
+  routes:
+    server:
+      path: /**
+      url: http://localhost:8081
+eureka:
+  client:
+    enabled: false

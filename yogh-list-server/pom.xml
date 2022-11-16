@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>nl.yogh</groupId>
+    <artifactId>yogh-list-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>yogh-list-server</artifactId>
+  <packaging>war</packaging>
+
+  <properties>
+    <vue.version>2.7.2</vue.version>
+    <application.root>${project.basedir}/..</application.root>
+  </properties>
+  
+  <scm>
+    <developerConnection>scm:git:ssh://git@github.com:yogh-io/yogh-list.git</developerConnection>
+  </scm>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.webjars.npm</groupId>
+      <artifactId>vue</artifactId>
+      <version>${vue.version}</version>
+      <exclusions>
+        <!-- exclude vue__compiler-sfc because compiler-sfc is no longer an external dependency but this is not reflected in the webjars pom. -->
+        <exclusion>
+          <groupId>org.webjars.npm</groupId>
+          <artifactId>vue__compiler-sfc</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <configuration>
+            <scanIntervalSeconds>1</scanIntervalSeconds>
+            <contextXml>${basedir}/src/main/jettyconf/context.xml</contextXml>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>env-prod</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>yogh-list-client</artifactId>
+          <version>${project.version}</version>
+          <type>war</type>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+
+      <build>
+        <finalName>lists</finalName>
+              
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+            <version>1.4</version>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <goals>
+                  <goal>create</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <shortRevisionLength>8</shortRevisionLength>
+            </configuration>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+              <packagingExcludes>dev.html,config_dev.js</packagingExcludes>
+              <webResources>
+                <resource>
+                  <directory>src/main/index</directory>
+                  <filtering>true</filtering>
+                </resource>
+                <resource>
+                  <directory>src/main/config</directory>
+                  <filtering>true</filtering>
+                </resource>
+                <resource>
+                  <directory>src/main/webapp</directory>
+                </resource>
+              </webResources>
+            </configuration>
+          </plugin>
+        </plugins>
+
+        <filters>
+          <filter>src/main/config/application.properties</filter>
+        </filters>
+      </build>
+    </profile>
+
+    <profile>
+      <id>env-dev</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>dev</value>
+        </property>
+      </activation>
+
+      <build>
+        <resources>
+          <resource>
+            <!-- this is relative to the pom.xml directory -->
+            <directory>src/main/index</directory>
+            <filtering>true</filtering>
+            <targetPath>${project.build.directory}/jettyFilteredIndex</targetPath>
+            <excludes>
+              <!-- Exclude prod files -->
+              <exclude>index.html</exclude>
+            </excludes>
+          </resource>
+        </resources>
+
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.eclipse.jetty</groupId>
+              <artifactId>jetty-maven-plugin</artifactId>
+              <configuration>
+                <webApp>
+                  <resourceBases>
+                    <resourceBase>${basedir}/src/main/webapp</resourceBase>
+                    <resourceBase>${project.build.directory}/jettyFilteredIndex</resourceBase>
+                    <resourceBase>${application.root}/target/gwt/launcherDir/</resourceBase>
+                  </resourceBases>
+                  <overrideDescriptor>${basedir}/src/main/webapp/WEB-INF/web_dev.xml</overrideDescriptor>
+                </webApp>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
+</project>

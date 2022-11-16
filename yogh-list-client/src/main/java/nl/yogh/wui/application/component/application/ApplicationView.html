@@ -1,0 +1,67 @@
+<div class="root">
+  <div class="main">
+    <application-header
+      :eventBus="eventBus">
+    </application-header>
+    
+    <div class="content">
+      <keep-alive>
+        <slot></slot>
+      </keep-alive>
+    </div>
+  
+    <notification />
+  
+    <div class="footer">
+      <i>
+        <span>Application build number:</span>
+        <a :href="applicationBuild"
+          target="_blank">
+          {{ cfg.getBuildNumber() }}
+        </a>
+      </i>
+    </div>
+  </div>
+</div>
+
+<style scoped lang="scss">
+.notificationsToggle {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  color: #bbb;
+  padding: 5px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.5em;
+  transition: color 0.1s ease-out;
+  
+  &:hover {
+    color: black;
+  }
+}
+
+.root {
+  display: flex;
+  justify-content: center;
+  background: #ddd;
+  min-height: 100vh;
+  min-width: calc(32*24px + 3*15px + 2em);
+}
+
+.main {
+  width: calc(32*24px + 3*15px + 2em);
+}
+
+.content {
+  padding: 1em;
+  flex-grow: 1;
+  background: #fff;
+}
+
+.footer {
+  margin-top: 20px;
+  padding: 1em;
+  background: #fff;
+}
+</style>

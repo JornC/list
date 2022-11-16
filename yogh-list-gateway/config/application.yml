@@ -1,0 +1,5 @@
+zuul:
+  routes:
+    server:
+      path: /**
+      url: http://localhost:8081/
