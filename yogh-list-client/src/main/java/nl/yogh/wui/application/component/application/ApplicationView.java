@@ -23,6 +23,6 @@ public class ApplicationView implements IsVueComponent {
 
   @Computed
   public String getApplicationBuild() {
-    return "https://github.com/yogh-io/yogh-list/commit/" + cfg.getBuildNumber();
+    return "https://github.com/JornC/list/commit/" + cfg.getBuildNumber();
   }
 }

@@ -2,39 +2,40 @@
   <a @click.prevent="goHome()"
     href="/landing"
     class="inert title">
-    <h1>Yogh Lists</h1>
+    <h1>Lists</h1>
   </a>
 </div>
 
 <style scoped lang="scss">
 .header {
-  background: #fff;
+  background: var(--punch-color);
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 1fr;
   grid-template-areas: "title";
   grid-gap: var(--spacer);
 
-  margin-bottom: 20px;
   padding: var(--spacer);;
   
   .title {
     grid-area: title;
+    border-radius: 0px;
     padding: var(--spacer);
-    color: inherit;
+    color: white;
+    font-weight: bold;
+
+    h1 {
+      color: inherit;
+      font-weight: inherit;
+    }
   }
   
   .inert {
-    color: initial;
     text-decoration: none;
     transition: color 0.1s ease-out, background 0.1s ease-out;
     
-    &:hover {
-      color: var(--theme-color);
-      background: #f5f5f5;
-    }
-    &:active {
-      background: #e5e5e5;
+    &:hover, &:active {
+      background: #33333333;
     }
   }
 }

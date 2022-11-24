@@ -1,4 +1,4 @@
-package nl.yogh.wui.application.context;
+package nl.yogh.wui.application.domain;
 
 public class ListItem {
   private String text;

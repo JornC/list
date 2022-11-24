@@ -11,10 +11,13 @@ import com.axellience.vuegwt.core.annotations.component.Prop;
 import com.axellience.vuegwt.core.client.component.IsVueComponent;
 import com.google.web.bindery.event.shared.EventBus;
 
+import nl.yogh.wui.application.component.list.ListViewComponent;
 import nl.yogh.wui.application.context.ListContext;
-import nl.yogh.wui.application.context.ListItem;
+import nl.yogh.wui.application.domain.ListItem;
 
-@Component
+@Component(components = {
+    ListViewComponent.class,
+})
 public class LandingView implements IsVueComponent {
   @Prop EventBus eventBus;
 

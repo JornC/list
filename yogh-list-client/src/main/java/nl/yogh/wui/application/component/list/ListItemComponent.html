@@ -1,0 +1,16 @@
+<div class="itemContainer">
+  <p>{{ item.getText() }}</p>
+</div>
+
+<style lang="scss" scoped>
+.itemContainer {
+  transition: all var(--anim);
+  
+  &:hover {
+    padding: var(--spacer);
+    cursor: pointer;
+    color: white;
+    background: var(--punch-color);
+  }
+}
+</style>

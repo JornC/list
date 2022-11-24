@@ -1,33 +1,25 @@
 :root {
-  /* Define a single theme color with variants. Most interaction-elements should make do with these colors. */
-  --theme-color: #1579A0;
-  --theme-color-light: #D0E5EF;
+  --punch-color: var(--color-5);
+  --theme-color: black;
+  --theme-color-light: white;
+  
+  --color-1: #4878D9; /* blue */
+  --color-2: #304D73; /* blue 2 */
+  --color-3: #F2A81D; /* yellow */
+  --color-4: #F2921D; /* orange */
+  --color-5: #F24C27; /* red / punch */
 
   --text-color: #333;
   --back-color: #F5F5F5;
-  --hyperlink-color: #1579A0;
-  --hyperlink-color-visited: #884488;
 
-  --light-grey: #D4D4D4;
-  --lighter-grey: #E8E8E8;
-  --dark-grey: #4D4D4D;
   --grey: #888;
 
-  /* A default spacer, 0.7rem corresponds to about 10px (ordinarily) */
   --spacer: 0.7rem;
   --half-spacer: 0.5rem;
   
-  --default-radius: 3px;
-
-  /* The optimal text width for a paragraph of text. To be used for the width attribute. */
   --paragraph: clamp(45ch, 100%, 75ch);
 
-  /** Animation time for arbitrary non-critical elements, can be slow for aesthetics **/
   --animation-time: 0.15s;
-  /** Animation time for function-critical elements, should be quick; the experience is not as important as the function **/
-  --animation-time-primary: 0.1s;
-
-  /* Short-hand */
   --anim: 0.1s ease-out;
 }
 
@@ -60,6 +52,8 @@
 html {
   height: 100%;
   min-height: 600px;
+  font-family: 'Roboto', sans-serif;
+  font-optical-sizing: auto;
 }
 
 body {
